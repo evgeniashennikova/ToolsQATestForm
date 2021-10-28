@@ -1,11 +1,15 @@
 package formTest;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Keys;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import java.io.File;
+
+import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeForm {
 
@@ -16,20 +20,33 @@ public class PracticeForm {
 
     @Test
     void studentsForm() {
+
+        String specName = "Biology";
+        String shortSpecName = specName.substring(0,specName.length()-1);
+        String subjectsContainerXpath = "//div[@id='subjectsContainer']";
+        String specNameXpath = String.format("//div[text()='%s']",specName);
+        String specialization = subjectsContainerXpath+specNameXpath;
+
         open("https://demoqa.com/automation-practice-form");
         $("#firstName").setValue("Student1");
         $("#lastName").setValue("Ivanov");
         $("#userEmail").setValue("Student1@example.com");
         $("[for=gender-radio-1]").click(); //Почему не срабатывает через selectRadio("Male")
         $("#userNumber").setValue("8920000000");
-        $("#subjectsContainer").click();  //как выбрать значение из выпадающего списка?
+        $("#dateOfBirthInput").click();
+        $("#dateOfBirthInput").sendKeys(Keys.CONTROL + "A");
+        $("#dateOfBirthInput").sendKeys("05 Oct 2000" + Keys.ENTER);
+        $("#subjectsInput").click();
+        $("#subjectsInput").sendKeys(shortSpecName);
+        $x(specialization).click();
         $("[for=hobbies-checkbox-1]").click();
-        // $("uploadPicture").UploadFile();  как вставить файл в папку resources? и как потом файл вставить на сайте?
+        $("#uploadPicture").uploadFile(new File("src/test/resources/cat.jpg"));
         $("#currentAddress").setValue("SPb");
-        $(".css-tlfecz-indicatorContainer").click(); // клик делает. Как дальше в выпадающем окне выбрать значение?
-         //       find(text("NCR"));
-        $("#city").click(); // Нужно ли перед этим проверить, что поле активно? Если в первом поле нет значения, то второе поле не активно.
-        //затем нужно выбрать значение из выпадающего списка
+        $("#state").scrollTo();
+        $("#state").click();
+        $x("//div[@id='state']//div[text()='Uttar Pradesh']").shouldBe(Condition.visible).click();
+        $("#city").click();
+        $x("//div[@id='city']//div[text()='Agra']").click();
         $("#submit").click();
 
 
