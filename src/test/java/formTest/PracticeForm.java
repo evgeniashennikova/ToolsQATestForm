@@ -23,13 +23,13 @@ public class PracticeForm {
 
     @Test
     void studentsForm() {
-
+        String nameForm = "Student Registration Form";
         String nameStudent = "Student1";
         String lastName = "Ivanov";
         String userEmail = "Student1@example.com";
         String gender = "Male";
         String userNumber = "8920000000";
-        String dateOfBirth = "05 Oct 2000";
+//        String dateOfBirth = "05 October 2000";
         String specName = "Hindi";
         String shortSpecName = specName.substring(0, specName.length() - 1);
         String subjectsContainerXpath = "//div[@id='subjectsContainer']";
@@ -44,31 +44,35 @@ public class PracticeForm {
 
 
         open("https://demoqa.com/automation-practice-form");
+        $("#app").$(".practice-form-wrapper").shouldHave(text(nameForm));
         $("#firstName").setValue(nameStudent);
         $("#lastName").setValue(lastName);
         $("#userEmail").setValue(userEmail);
-        $(byText(gender)).click();
+        $("#genterWrapper").$(byText(gender)).click();
         $("#userNumber").setValue(userNumber);
         $("#dateOfBirthInput").click();
-        $("#dateOfBirthInput").sendKeys(Keys.CONTROL + "A");
-        $("#dateOfBirthInput").sendKeys(dateOfBirth + Keys.ENTER);
+        $(".react-datepicker__month-select").selectOption("October");
+        $(".react-datepicker__year-select").selectOption("2000");
+        $(".react-datepicker__day--005:not(.react-datepicker__day--outside-month)").click();
+
+//        $("#dateOfBirthInput").sendKeys(Keys.CONTROL + "A");  //второй вариант добавления даты рождения
+//        $("#dateOfBirthInput").sendKeys(dateOfBirth + Keys.ENTER);
         $("#subjectsInput").click();
         $("#subjectsInput").sendKeys(shortSpecName);
         $x(specialization).click();
-        $(byText(hobbies)).click();
+        $("#hobbiesWrapper").$(byText(hobbies)).click();
         $("#uploadPicture").uploadFile(new File(image));
         $("#currentAddress").setValue(address);
         $("#state").scrollTo();
         $("#state").click();
-        $(byText(state)).click();
+        $("#stateCity-wrapper").$(byText(state)).click();
         $("#city").click();
-        $(byText(city)).click();
+        $("#stateCity-wrapper").$(byText(city)).click();
         $("#submit").click();
 
         $(".modal-content").shouldHave(text("Thanks for submitting the form"));
         $(".table-responsive").
-                shouldHave(text(nameStudent)).
-                shouldHave(text(lastName)).
+                shouldHave(text(nameStudent+" "+lastName)).
                 shouldHave(text(userEmail)).
                 shouldHave(text(gender)).
                 shouldHave(text(userNumber)).
@@ -79,6 +83,6 @@ public class PracticeForm {
                 shouldHave(text(address)).
                 shouldHave(text(state)).
                 shouldHave(text(city));
-        $("#closeLargeModal").shouldBe();
+        $("#closeLargeModal").click();
     }
 }
