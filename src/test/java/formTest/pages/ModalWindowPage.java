@@ -6,7 +6,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
-public class ModalWindowPage extends RegistrationsPage {
+public class ModalWindowPage  {
 
     private final String NAME_MODAL_WINDOW = "Thanks for submitting the form";
     private SelenideElement
