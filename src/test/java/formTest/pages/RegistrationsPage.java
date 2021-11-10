@@ -63,13 +63,6 @@ public class RegistrationsPage {
         return this;
     }
 
-    public RegistrationsPage typeDateOfBirth() {
-        dateOfBirthInputSelector.click();
-        dateOfBirthMonthSelector.selectOption("October");
-        dateOfBirthYearSelector.selectOption("2000");
-        dateOfBirthDaySelector.click();
-        return this;
-    }
 
     public RegistrationsPage typeSubjects() {
         subjectsInputSelector.click();
