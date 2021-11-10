@@ -5,7 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$;
 import static formTest.testbase.TestData.*;
 
-public class ComponentCalendar extends RegistrationsPage {
+public class ComponentCalendar  {
 
     private SelenideElement
             dateOfBirthInputSelector = $("#dateOfBirthInput"),
