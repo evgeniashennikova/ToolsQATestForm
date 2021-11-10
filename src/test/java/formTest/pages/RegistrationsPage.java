@@ -1,14 +1,13 @@
 package formTest.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.javafaker.Faker;
 
 import java.io.File;
-import java.util.Locale;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static formTest.testbase.TestData.*;
 
 public class RegistrationsPage {
 
@@ -32,26 +31,6 @@ public class RegistrationsPage {
             stateCitySelector = $("#stateCity-wrapper"),
             citySelector = $("#city"),
             submitSelector = $("#submit");
-
-    private Faker faker = new Faker(new Locale("en"));
-    private String nameStudent = faker.name().firstName();
-    private String lastName = faker.name().lastName();
-    private String userEmail = faker.internet().emailAddress();
-    private String gender = "Male";
-    private String userNumber = faker.phoneNumber().subscriberNumber(10);
-
-    private String specName = "Hindi";
-    private String shortSpecName = specName.substring(0, specName.length() - 1);
-    private String subjectsContainerXpath = "//div[@id='subjectsContainer']";
-    private String specNameXpath = String.format("//div[text()='%s']", specName);
-    private String specialization = subjectsContainerXpath + specNameXpath;
-
-    private String hobbies = "Sports";
-    private String image = "src/test/resources/cat.jpg";
-    private String address = faker.address().streetAddress();
-    private String state = "NCR";
-    private String city = "Noida";
-
 
     public RegistrationsPage openPage() {
         open("https://demoqa.com/automation-practice-form");
@@ -129,25 +108,5 @@ public class RegistrationsPage {
     public RegistrationsPage typeSubmit() {
         submitSelector.click();
         return this;
-    }
-
-    public String getNameStudent() {
-        return nameStudentSelector.getValue();
-    }
-
-    public String getLastName() {
-        return lastNameSelector.getValue();
-    }
-
-    public String getUserEmail() {
-        return userEmailSelector.getValue();
-    }
-
-    public String getUserNumber() {
-        return userNumberSelector.getValue();
-    }
-
-    public String getAddress() {
-        return addressSelector.getValue();
     }
 }
